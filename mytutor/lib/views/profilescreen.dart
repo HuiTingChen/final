@@ -37,16 +37,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
             accountName: Text(widget.user.name.toString()),
             accountEmail: Text(widget.user.email.toString()),
             currentAccountPicture: ClipOval(
-                                  child: Image.network(
-                                    CONSTANTS.server +
-                                        '/276876/mytutor/mobile/assets/user/${widget.user.id}.jpg' +
-                                        "?v=$val",
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return const Icon(Icons.broken_image,
-                                          size: 128);
-                                    },
-                                  ),
-                                ),
+              child: Image.network(
+                CONSTANTS.server +
+                    '/276876/mytutor/mobile/assets/user/${widget.user.id}.jpg' +
+                    "?v=$val",
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(Icons.broken_image, size: 128);
+                },
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(32, 350, 32, 32),
@@ -55,9 +54,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               height: 60,
               child: ElevatedButton(
                 child: const Text("Logout",
-                                  style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold)),
+                    style:
+                        TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                 onPressed: () {
                   Navigator.push(
                       context,

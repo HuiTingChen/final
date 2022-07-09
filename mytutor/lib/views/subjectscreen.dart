@@ -145,7 +145,6 @@ class _SubjectScreenState extends State<SubjectScreen> {
                                         children: [
                                           Positioned(
                                             child: CachedNetworkImage(
-                                              //height: 150.0,
                                               imageUrl: CONSTANTS.server +
                                                   "/276876/mytutor/mobile/assets/courses/" +
                                                   subjectList[index]
@@ -204,80 +203,117 @@ class _SubjectScreenState extends State<SubjectScreen> {
                                     const SizedBox(height: 5),
                                     Flexible(
                                         flex: 5,
-                                        child: Column(
+                                        child: Stack(
                                           children: [
-                                            Text(
-                                              subjectList[index]
-                                                  .subjectName
-                                                  .toString(),
-                                              style: const TextStyle(
-                                                  fontSize: 11,
-                                                  fontWeight: FontWeight.w900),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            const SizedBox(height: 5),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                RatingBarIndicator(
-                                                  rating: double.parse(
-                                                      subjectList[index]
-                                                          .subjectRating
-                                                          .toString()),
-                                                  direction: Axis.horizontal,
-                                                  itemCount: 5,
-                                                  itemSize: 12,
-                                                  itemPadding: const EdgeInsets
-                                                          .symmetric(
-                                                      horizontal: 2.0),
-                                                  itemBuilder: (context, _) =>
-                                                      const Icon(
-                                                    Icons.star_rounded,
-                                                    color: Colors.amber,
-                                                    size: 2,
-                                                  ),
-                                                ),
-                                                const SizedBox(width: 8),
-                                                Text(
-                                                  subjectList[index]
-                                                      .subjectRating
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                      fontSize: 10,
-                                                      color: Colors.grey[600]),
-                                                ),
-                                              ],
-                                            ),
-                                            Text(
-                                                "RM " +
-                                                    double.parse(
-                                                            subjectList[index]
-                                                                .subjectPrice
-                                                                .toString())
-                                                        .toStringAsFixed(2),
-                                                style: const TextStyle(
-                                                    fontSize: 10,
-                                                    fontWeight:
-                                                        FontWeight.w500)),
-                                            Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
+                                            Positioned(
+                                              child: Column(
                                                 children: [
-                                                  const Icon(
-                                                      Icons.school_rounded,
-                                                      size: 15),
-                                                  const SizedBox(width: 8),
                                                   Text(
-                                                      subjectList[index]
-                                                              .subjectSessions
-                                                              .toString() +
-                                                          " sessions",
+                                                    subjectList[index]
+                                                        .subjectName
+                                                        .toString(),
+                                                    style: const TextStyle(
+                                                        fontSize: 11,
+                                                        fontWeight:
+                                                            FontWeight.w900),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                  const SizedBox(height: 5),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      RatingBarIndicator(
+                                                        rating: double.parse(
+                                                            subjectList[index]
+                                                                .subjectRating
+                                                                .toString()),
+                                                        direction:
+                                                            Axis.horizontal,
+                                                        itemCount: 5,
+                                                        itemSize: 12,
+                                                        itemPadding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal:
+                                                                    2.0),
+                                                        itemBuilder:
+                                                            (context, _) =>
+                                                                const Icon(
+                                                          Icons.star_rounded,
+                                                          color: Colors.amber,
+                                                          size: 2,
+                                                        ),
+                                                      ),
+                                                      const SizedBox(width: 8),
+                                                      Text(
+                                                        subjectList[index]
+                                                            .subjectRating
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                            fontSize: 10,
+                                                            color: Colors
+                                                                .grey[600]),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Text(
+                                                      "RM " +
+                                                          double.parse(subjectList[
+                                                                      index]
+                                                                  .subjectPrice
+                                                                  .toString())
+                                                              .toStringAsFixed(
+                                                                  2),
                                                       style: const TextStyle(
                                                           fontSize: 10,
                                                           fontWeight:
                                                               FontWeight.w500)),
-                                                ]),
+                                                  Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        const Icon(
+                                                            Icons
+                                                                .school_rounded,
+                                                            size: 15),
+                                                        const SizedBox(
+                                                            width: 8),
+                                                        Text(
+                                                            subjectList[index]
+                                                                    .subjectSessions
+                                                                    .toString() +
+                                                                " sessions",
+                                                            style: const TextStyle(
+                                                                fontSize: 10,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500)),
+                                                      ]),
+                                                ],
+                                              ),
+                                            ),
+                                            const Positioned(
+                                              bottom: 5,
+                                              right: 2,
+                                              child: Icon(Icons.circle,
+                                                  color: Colors.white,
+                                                  size: 40), //Icon
+                                            ),
+                                            Positioned(
+                                              bottom: -1,
+                                              right: -2,
+                                              child: IconButton(
+                                                icon: const Icon(
+                                                    Icons.shopping_cart,
+                                                    color: Colors.black),
+                                                onPressed: () {
+                                                  _addtocartDialog(index);
+                                                },
+                                              ), //Icon
+                                            ),
                                           ],
                                         ))
                                   ],
@@ -321,7 +357,8 @@ class _SubjectScreenState extends State<SubjectScreen> {
     curpage = pageno;
     numofpage ?? 1;
     http.post(
-        Uri.parse(CONSTANTS.server + "/276876/mytutor/mobile/php/load_subjects.php"),
+        Uri.parse(
+            CONSTANTS.server + "/276876/mytutor/mobile/php/load_subjects.php"),
         body: {
           'pageno': pageno.toString(),
           'search': _search,
@@ -533,24 +570,13 @@ class _SubjectScreenState extends State<SubjectScreen> {
                               alignment: Alignment.centerRight,
                               width: screenWidth * (3 / 10),
                               child: IconButton(
-                                              icon: const Icon(
-                                                  Icons.favorite_border,
-                                                  size: 45),
-                                              onPressed: () {
-                                                print("favorite");
-                                                //_addFavorite(index);
-                                              },
-                                            ), //Ico
-                              // Text(
-                              //   "RM " +
-                              //       double.parse(subjectList[index]
-                              //               .subjectPrice
-                              //               .toString())
-                              //           .toStringAsFixed(2),
-                              //   style: const TextStyle(
-                              //       fontSize: 22, fontWeight: FontWeight.w900),
-                              //   textAlign: TextAlign.right,
-                              // ),
+                                icon:
+                                    const Icon(Icons.favorite_border, size: 45),
+                                onPressed: () {
+                                  print("favorite");
+                                  //_addFavorite(index);
+                                },
+                              ),
                             )
                           ],
                         ),
@@ -636,8 +662,8 @@ class _SubjectScreenState extends State<SubjectScreen> {
                   SizedBox(
                     height: 40,
                     child: ElevatedButton(
-                        onPressed: ()  {
-                          _addtocartDialog(index); 
+                        onPressed: () {
+                          _addtocartDialog(index);
                         },
                         child: const Text(
                           "Add to cart",
@@ -741,8 +767,8 @@ class _SubjectScreenState extends State<SubjectScreen> {
   void _loadMyCart() {
     if (widget.user.email != "guest@gmail.com") {
       http.post(
-          Uri.parse(
-              CONSTANTS.server + "/276876/mytutor/mobile/php/load_mycartqty.php"),
+          Uri.parse(CONSTANTS.server +
+              "/276876/mytutor/mobile/php/load_mycartqty.php"),
           body: {
             "email": widget.user.email.toString(),
           }).timeout(
@@ -774,7 +800,8 @@ class _SubjectScreenState extends State<SubjectScreen> {
 
   void _addtoCart(int index) {
     http.post(
-        Uri.parse(CONSTANTS.server + "/276876/mytutor/mobile/php/insert_cart.php"),
+        Uri.parse(
+            CONSTANTS.server + "/276876/mytutor/mobile/php/insert_cart.php"),
         body: {
           "email": widget.user.email.toString(),
           "subjectid": subjectList[index].subjectId.toString(),
@@ -816,8 +843,9 @@ class _SubjectScreenState extends State<SubjectScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 SizedBox(
-                  width: 100,
-                  child: ElevatedButton(onPressed: _Login, child: const Text("Login"))),
+                    width: 100,
+                    child: ElevatedButton(
+                        onPressed: _Login, child: const Text("Login"))),
                 SizedBox(
                   width: 100,
                   child: ElevatedButton(

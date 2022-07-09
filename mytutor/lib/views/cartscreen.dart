@@ -52,23 +52,25 @@ class _CartScreenState extends State<CartScreen> {
         ),
         body: cartList.isEmpty
             ? Center(
-              child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                  child: SizedBox(
-                    height: screenHeight,
-                    width: screenWidth,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset('assets/images/emptycart.png', scale: 1.3),
-                        Text(titlecenter,
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w400), textAlign: TextAlign.center),
-                      ],
-                    ),
-                  )),
-            )
+                child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                    child: SizedBox(
+                      height: screenHeight,
+                      width: screenWidth,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset('assets/images/emptycart.png',
+                              scale: 1.3),
+                          Text(titlecenter,
+                              style: const TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.w400),
+                              textAlign: TextAlign.center),
+                        ],
+                      ),
+                    )),
+              )
             : LiquidPullToRefresh(
                 onRefresh: _refresh,
                 color: Colors.teal,
@@ -98,8 +100,7 @@ class _CartScreenState extends State<CartScreen> {
                                                     top: 2),
                                                 child: GestureDetector(
                                                   onTap: () {
-                                                    _deleteItem(
-                                                                    index);
+                                                    _deleteItem(index);
                                                   },
                                                   child: Container(
                                                       height: 120,
@@ -119,12 +120,11 @@ class _CartScreenState extends State<CartScreen> {
                                                                 .center,
                                                         children: const [
                                                           Icon(
-                                                                  Icons
-                                                                      .delete_rounded,
-                                                                  size: 35,
-                                                                  color: Colors
-                                                                      .white),
-                                                             
+                                                              Icons
+                                                                  .delete_rounded,
+                                                              size: 35,
+                                                              color:
+                                                                  Colors.white),
                                                           Text(
                                                             "Delete",
                                                             style: TextStyle(
@@ -309,7 +309,9 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   void _loadCart() {
-    http.post(Uri.parse(CONSTANTS.server + "/276876/mytutor/mobile/php/load_cart.php"),
+    http.post(
+        Uri.parse(
+            CONSTANTS.server + "/276876/mytutor/mobile/php/load_cart.php"),
         body: {
           'email': widget.user.email,
         }).timeout(
@@ -338,7 +340,6 @@ class _CartScreenState extends State<CartScreen> {
           setState(() {});
         }
       } else {
-        Image.network('https://assets.materialup.com/uploads/66fb8bdf-29db-40a2-996b-60f3192ea7f0/preview.png');
         titlecenter = "Cart is empty";
         cartList.clear();
         setState(() {});
@@ -370,8 +371,7 @@ class _CartScreenState extends State<CartScreen> {
                     context,
                     MaterialPageRoute(
                         builder: (content) => PaymentScreen(
-                            user: widget.user,
-                            totalpayable: totalpayable)));
+                            user: widget.user, totalpayable: totalpayable)));
                 _loadCart();
               },
             ),
@@ -392,7 +392,8 @@ class _CartScreenState extends State<CartScreen> {
 
   void _deleteItem(int index) {
     http.post(
-        Uri.parse(CONSTANTS.server + "/276876/mytutor/mobile/php/delete_cart.php"),
+        Uri.parse(
+            CONSTANTS.server + "/276876/mytutor/mobile/php/delete_cart.php"),
         body: {
           'user_email': widget.user.email,
           'cart_id': cartList[index].cartId

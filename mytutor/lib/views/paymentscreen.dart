@@ -44,7 +44,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 onWebViewCreated: (WebViewController webViewController) {
                   _controller.complete(webViewController);
                 },
-                
               ),
             )
           ],

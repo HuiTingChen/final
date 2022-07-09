@@ -1,16 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mytutor/views/loginscreen.dart';
 import 'package:mytutor/views/mainscreen.dart';
-import 'package:mytutor/views/subjectscreen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 
-import 'constant.dart';
 import 'models/user.dart';
 
 void main() {
